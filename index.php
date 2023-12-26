@@ -1,3 +1,7 @@
+<?php 
+include "./conexion/cone.php"
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -8,13 +12,13 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
   <!-- styles -->
-  <link rel="stylesheet" href="assets/css/fancybox/jquery.fancybox.css">
-  <link href="assets/css/bootstrap.css" rel="stylesheet" />
-  <link href="assets/css/bootstrap-theme.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/slippry.css">
-  <link href="assets/css/style.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/color/default.css">
-  <script src="assets/js/modernizr.custom.js"></script>
+  <link rel="stylesheet" href="./assets/css/fancybox/jquery.fancybox.css">
+  <link href="./assets/css/bootstrap.css" rel="stylesheet" />
+  <link href="./assets/css/bootstrap-theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/slippry.css">
+  <link href="./assets/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/color/default.css">
+  <script src="./assets/js/modernizr.custom.js"></script>
 </head>
 <style>
   .custom-input {
@@ -41,40 +45,9 @@
 </style>
 
 <body>
-  <header>
-
-    <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
-      <div class="container">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">ProOnliPc</a>
-        </div>
-
-        <div class="navigation">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <nav>
-              <ul class="nav navbar-nav navbar-right">
-                <li class="current"><a href="#intro">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
-          <!-- /.navbar-collapse -->
-        </div>
-
-      </div>
-    </div>
-
-  </header>
+  <?php
+  include "./navbar.php"
+  ?>
   <!-- section intro -->
   <section id="intro">
     <ul id="slippry-slider">
@@ -196,8 +169,8 @@
           <ul class="grid effect" id="grid">
             <li>
               <a class="fancybox" data-fancybox-group="gallery" title="Portfolio name"
-                href="assets/img/portfolio/1.jpg">
-                <img src="assets/img/portfolio/1.jpg" alt="" />
+                href="../assets/img/portfolio/1.jpg">
+                <img src="../assets/img/portfolio/1.jpg" alt="" />
               </a>
             </li>
             <li><a href="assets/img/portfolio/2.jpg" class="fancybox" data-fancybox-group="gallery"
@@ -257,13 +230,13 @@
                 <label>Seleciona al Tatuador</label>
                 <select name="tatuador" id="tatuador" class="form-group custom-input">
                   <option value="0">Seleccione:</option>
-                  <!-- <?php
+                  <?php
                     $user = ("SELECT * FROM USUARIOS WHERE tipoUsuario=2");
                     $resul = mysqli_query($conn, $user);
                     while ($valores = mysqli_fetch_array($resul)) {
                       echo '<option value="' . $valores['idUsuario'] . '">' . $valores['nombre'] . '</option>';
                     }
-                    ?> -->
+                    ?> 
                 </select>
               </div>
 

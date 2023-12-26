@@ -43,40 +43,9 @@
 </style>
 
 <body>
-  <header>
-
-    <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
-      <div class="container">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">ProOnliPc</a>
-        </div>
-
-        <div class="navigation">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <nav>
-              <ul class="nav navbar-nav navbar-right">
-                <li class="current"><a href="#intro">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
-          <!-- /.navbar-collapse -->
-        </div>
-
-      </div>
-    </div>
-
-  </header>
+  <?php
+  include "../navbar.php"
+  ?>
   <!-- section intro -->
   <main>
     <div class="container">
@@ -123,13 +92,11 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label>Apellido Paterno</label>
-                <input type="text" name="apellidopaterno" class="form-control custom-input" id="apellidopaterno"
-                  data-rule="minlen:4" required />
+                <input type="text" name="apellidopaterno" class="form-control custom-input" id="apellidopaterno" data-rule="minlen:4" required />
               </div>
               <div class="col-md-6 form-group">
                 <label>Apellido Materno</label>
-                <input type="text" name="apellidomaterno" class="form-control custom-input" id="apellidomaterno"
-                  data-rule="minlen:4" required />
+                <input type="text" name="apellidomaterno" class="form-control custom-input" id="apellidomaterno" data-rule="minlen:4" required />
               </div>
             </div>
             <div class="row">
@@ -139,8 +106,7 @@
               </div>
               <div class="col-md-6 form-group">
                 <label>Fecha de nacimiento</label>
-                <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento"
-                  min="1930-01-01" max="2030-12-31" required>
+                <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
               </div>
             </div>
             <div class="row">
@@ -200,8 +166,7 @@
               <div class="credits">
 
                 <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc
-                  Themes</a> by <a
-                  href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
+                  Themes</a> by <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
               </div>
             </div>
           </div>
@@ -220,10 +185,10 @@
     }
   </script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       var form = document.querySelector('form');
 
-      form.addEventListener('submit', function (event) {
+      form.addEventListener('submit', function(event) {
         // Validación para que ningún campo vaya vacío
         var inputs = form.querySelectorAll('input, select');
         for (var i = 0; i < inputs.length; i++) {

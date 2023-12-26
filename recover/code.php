@@ -35,40 +35,10 @@
 </style>
 
 <body>
-  <header>
-
-    <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
-      <div class="container">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">ProOnliPc</a>
-        </div>
-
-        <div class="navigation">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <nav>
-              <ul class="nav navbar-nav navbar-right">
-                <li class="current"><a href="#intro">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
-          <!-- /.navbar-collapse -->
-        </div>
-
-      </div>
-    </div>
-
-  </header><br><br>
+  <?php
+  include "../navbar.php"
+  ?>
+  <br><br>
   <!-- section intro -->
   <main>
     <div class="container">
@@ -95,8 +65,8 @@
               <label class="form-label">Código (solo números, 5 dígitos)</label>
               <input type="number" pattern="\d*" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" class="form-control custom-input" id="exampleInputCode" required>
               <small id="codeHelp" style="font-size: 18px;" class="form-text text-muted">Ingrese solo números y asegúrese de que haya exactamente 5 dígitos.</small>
-          </div>
-          <br>
+            </div>
+            <br>
             <div class="col-md-8 col-md-offset-2">
               <button type="button" class="btn btn-block custom-button" style="border-radius: 5px;">Continuar</button>
             </div>
@@ -131,8 +101,7 @@
               <div class="credits">
 
                 <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc
-                  Themes</a> by <a
-                  href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
+                  Themes</a> by <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
               </div>
             </div>
           </div>
@@ -144,4 +113,5 @@
   <script src="../assets/js/bootstrap.js"></script>
   <script src="../assets/js/jquery.nav.js"></script>
 </body>
+
 </html>

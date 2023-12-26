@@ -35,40 +35,9 @@
 </style>
 
 <body>
-  <header>
-
-    <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
-      <div class="container">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">ProOnliPc</a>
-        </div>
-
-        <div class="navigation">
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <nav>
-              <ul class="nav navbar-nav navbar-right">
-                <li class="current"><a href="#intro">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
-          <!-- /.navbar-collapse -->
-        </div>
-
-      </div>
-    </div>
-
-  </header>
+  <?php
+  include "../navbar.php"
+  ?>
   <!-- section intro -->
   <main>
     <div class="container">
@@ -92,19 +61,16 @@
           <form>
             <div class="mb-3 form-group">
               <label class="form-label">Correo Electronico</label>
-              <input type="email" class="form-control custom-input" placeholder="Correo Electronico" id="exampleInputEmail1"
-                aria-describedby="emailHelp">
+              <input type="email" class="form-control custom-input" placeholder="Correo Electronico" id="exampleInputEmail1" aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="form-group">
               <label for="Password">Contraseña</label>
               <div class="input-group">
-                  <input type="password" class="form-control custom-input" id="password"
-                      name="password" placeholder="Contraseña" required>
-                  <span class="input-group-addon eye-icon"
-                      onclick="togglePassword('password')">👁️</span>
+                <input type="password" class="form-control custom-input" id="password" name="password" placeholder="Contraseña" required>
+                <span class="input-group-addon eye-icon" onclick="togglePassword('password')">👁️</span>
               </div><br>
-          </div>
+            </div>
 
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -161,8 +127,7 @@
               <div class="credits">
 
                 <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc
-                  Themes</a> by <a
-                  href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
+                  Themes</a> by <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
               </div>
             </div>
           </div>
@@ -174,12 +139,12 @@
   <script src="../assets/js/bootstrap.js"></script>
   <script src="../assets/js/jquery.nav.js"></script>
 
-<script>
-   function togglePassword(inputId) {
-            const passwordInput = document.getElementById(inputId);
-            passwordInput.type = (passwordInput.type === "password") ? "text" : "password";
-        }
-</script>
+  <script>
+    function togglePassword(inputId) {
+      const passwordInput = document.getElementById(inputId);
+      passwordInput.type = (passwordInput.type === "password") ? "text" : "password";
+    }
+  </script>
 
 
 
