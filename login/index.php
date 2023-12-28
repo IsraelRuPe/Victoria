@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION["idUsuario"])) {
+  header("Location: ../citas");
+  die();
+}
+?>
 <!doctype html>
 <html lang="es">
 
@@ -17,7 +24,7 @@
     width: 100%;
     padding: 20px;
     margin-bottom: 15px;
-    border: 2px solid #1a0c0c;
+    border: 1px solid #1a0c0c;
     border-radius: 35px;
     text-align: center;
     font-size: 17px;
@@ -58,16 +65,20 @@
           <h4><i class="icon-envelope"></i><strong>Bienvenido</strong></h4>
           <p>Ingrese su correo y contraseña</p><b></b>
 
-          <form>
+          <form action="./login.php" method="POST">
             <div class="mb-3 form-group">
-              <label class="form-label">Correo Electronico</label>
-              <input type="email" class="form-control custom-input" placeholder="Correo Electronico" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              <label class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control custom-input" placeholder="Correo Electrónico" id="exampleInputEmail1" name="loginemail" aria-describedby="emailHelp">
+              <?php
+              if (isset($_GET['error']) && $_GET['error'] == 1) {
+                echo "<p style=\"color:red\" ;>Usuario o Contraseña incorrecta, ingrese datos correctos</p>";
+              }
+              ?>
             </div>
             <div class="form-group">
               <label for="Password">Contraseña</label>
               <div class="input-group">
-                <input type="password" class="form-control custom-input" id="password" name="password" placeholder="Contraseña" required>
+                <input type="password" class="form-control custom-input" id="password" name="passlogin" placeholder="Contraseña" required>
                 <span class="input-group-addon eye-icon" onclick="togglePassword('password')">👁️</span>
               </div><br>
             </div>
@@ -75,19 +86,19 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1" name="check">
                   <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
               </div>
               <div class="col-md-6 mb-3 text-right">
-                <a href="../recover/index.html">¿Olvidaste tu contraseña?</a>
+                <a href="../recover/index.php">¿Olvidaste tu contraseña?</a>
               </div>
             </div><br>
             <div class="col-md-8 col-md-offset-2">
-              <button type="button" class="btn btn-block btn-success" style="border-radius: 5px">Iniciar</button>
+              <button type="submit" class="btn btn-block btn-success" style="border-radius: 5px">Iniciar</button>
             </div><br><br>
             <div>
-              <p>¿No tienes una cuenta? <a href="./registro.html">Crear una cuenta</a></p>
+              <p>¿No tienes una cuenta? <a href="./registro.php">Crear una cuenta</a></p>
             </div>
           </form>
 

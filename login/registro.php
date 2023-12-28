@@ -1,3 +1,7 @@
+<?php
+include('../conexion/cone.php');
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -17,7 +21,7 @@
     width: 100%;
     padding: 18px;
     margin-bottom: 15px;
-    border: 2px solid #1a0c0c;
+    border: 1px solid #1a0c0c;
     text-align: center;
     font-size: 16px;
   }
@@ -26,7 +30,7 @@
     width: 100%;
     padding: 9px;
     margin-bottom: 15px;
-    border: 2px solid #1a0c0c;
+    border: 1px solid #1a0c0c;
     text-align: center;
     font-size: 14px;
   }
@@ -54,87 +58,85 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2 ">
           <div class="heading">
             <h3><span>Registrarse</span></h3>
           </div>
           <div class="sub-heading">
             <p></p>
           </div>
-        </div>
-
-
-        <div class="col-md-6 text-center">
-          <h4>Find our location</h4>
-          <p>View from google map</p>
-          <img src="../assets/img/slide/2.jpg" alt="" class="mx-auto d-block img-fluid" style="width: 100%;">
-        </div>
-        <div class="col-md-6">
-          <h4 class="text-center"><i class="icon-envelope"></i><strong>Registar usuario</strong></h4>
-          <!-- inicio registro usuario -->
-          <form action="" method="post">
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label>Nombre(s)</label>
-                <input type="text" name="nombre" class="form-control custom-input" id="nombre" required />
-              </div>
-              <div class="col-md-6" text-align="center">
-                <label>Elige tu Genero</label>
-                <select name="genero" id="genero" class="custom-inputt form-group">
+          <div class="col-md-10 col-md-offset-1">
+            <h4 class="text-center"><i class="icon-envelope"></i><strong>Registar usuario</strong></h4>
+            <!-- inicio registro usuario -->
+            <form action="registrouser.php" method="post">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Nombre(s)</label>
+                  <input type="text" name="nombre" class="form-control custom-input" id="nombre" required />
+                </div>
+                <div class="col-md-6" text-align="center">
+                  <label>Elige tu Genero</label>
+                  <select name="genero" id="genero" class="form-group custom-inputt">
                   <option value="0">Seleccione:</option>
-                  <option value="value2" selected>Value 2</option>
-                  <option value="value3">Value 3</option>
+                  <?php
+                    $user = ("SELECT * FROM GENEROS");
+                    $resul = mysqli_query($conn, $user);
+                    while ($valores = mysqli_fetch_array($resul)) {
+                      echo '<option value="' . $valores['idGenero'] . '">' . $valores['genero'] . '</option>';
+                    }
+                    ?> 
                 </select>
 
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label>Apellido Paterno</label>
-                <input type="text" name="apellidopaterno" class="form-control custom-input" id="apellidopaterno" data-rule="minlen:4" required />
-              </div>
-              <div class="col-md-6 form-group">
-                <label>Apellido Materno</label>
-                <input type="text" name="apellidomaterno" class="form-control custom-input" id="apellidomaterno" data-rule="minlen:4" required />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label>Teléfono Celular</label>
-                <input type="text" name="telefono" class="form-control custom-input" id="telefono" required />
-              </div>
-              <div class="col-md-6 form-group">
-                <label>Fecha de nacimiento</label>
-                <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <label>Correo electronico</label>
-                <input type="email" class="form-control custom-input" name="correo" data-rule="email" required />
-              </div>
-              <div class="col-md-6 form-group">
-                <label>Contraseña</label>
-                <div class="input-group ">
-                  <input type="password" class="form-control custom-input" id="password" name="newPassword" required>
-                  <span class="input-group-addon eye-icon" onclick="togglePassword('password')">👁️</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Aceptar politica de privacidad</label>
                 </div>
               </div>
 
-            </div><br>
-            <div class="form-group text-center">
-              <input type="submit" class="btn btn-lg btn-theme" value="Registarse">
-            </div>
-          </form>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Apellido Paterno</label>
+                  <input type="text" name="apellidopaterno" class="form-control custom-input" id="apellidopaterno" data-rule="minlen:4" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Apellido Materno</label>
+                  <input type="text" name="apellidomaterno" class="form-control custom-input" id="apellidomaterno" data-rule="minlen:4" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Teléfono Celular</label>
+                  <input type="text" name="telefono" class="form-control custom-input" id="telefono" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Fecha de nacimiento</label>
+                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>Correo electronico</label>
+                  <input type="email" class="form-control custom-input" name="correo" data-rule="email" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Contraseña</label>
+                  <div class="input-group ">
+                    <input type="password" class="form-control custom-input" id="password" name="contrasena" required>
+                    <span class="input-group-addon eye-icon" onclick="togglePassword('password')">👁️</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Aceptar politica de privacidad</label>
+                  </div>
+                </div>
+
+              </div><br>
+              <div class="form-group text-center">
+                <input type="submit" class="btn btn-lg btn-theme" value="Registarse">
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

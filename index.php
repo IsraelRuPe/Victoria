@@ -1,5 +1,7 @@
-<?php 
+<?php
+session_start();
 include "./conexion/cone.php"
+
 ?>
 
 <!doctype html>
@@ -58,8 +60,7 @@ include "./conexion/cone.php"
         <a href="#slide2"><img src="assets/img/slide/2.jpg" alt="Like al Video para mas"></a>
       </li>
       <li>
-        <a href="#slide3"><img src="assets/img/slide/3.jpg"
-            alt="Suscribete al canal <span class='red'>♥</span>  :)"></a>
+        <a href="#slide3"><img src="assets/img/slide/3.jpg" alt="Suscribete al canal <span class='red'>♥</span>  :)"></a>
       </li>
     </ul>
   </section>
@@ -168,48 +169,35 @@ include "./conexion/cone.php"
         <div class="col-md-12">
           <ul class="grid effect" id="grid">
             <li>
-              <a class="fancybox" data-fancybox-group="gallery" title="Portfolio name"
-                href="../assets/img/portfolio/1.jpg">
+              <a class="fancybox" data-fancybox-group="gallery" title="Portfolio name" href="../assets/img/portfolio/1.jpg">
                 <img src="../assets/img/portfolio/1.jpg" alt="" />
               </a>
             </li>
-            <li><a href="assets/img/portfolio/2.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/2.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/3.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/3.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/4.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/4.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/5.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/5.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/6.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/6.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/7.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/7.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/8.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/8.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/9.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/9.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/10.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/10.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/11.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/11.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/12.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/12.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/13.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/13.jpg" alt="" /></a></li>
-            <li><a href="assets/img/portfolio/14.jpg" class="fancybox" data-fancybox-group="gallery"
-                title="Portfolio name"><img src="assets/img/portfolio/14.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/2.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/2.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/3.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/3.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/4.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/4.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/5.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/5.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/6.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/6.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/7.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/7.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/8.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/8.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/9.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/9.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/10.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/10.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/11.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/11.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/12.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/12.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/13.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/13.jpg" alt="" /></a></li>
+            <li><a href="assets/img/portfolio/14.jpg" class="fancybox" data-fancybox-group="gallery" title="Portfolio name"><img src="assets/img/portfolio/14.jpg" alt="" /></a></li>
           </ul>
         </div>
       </div>
     </div>
   </section>
   <!-- section works -->
-  <!-- section contact -->
-  <section id="contact" class="section">
+  <!-- section cotizacion -->
+
+  <section id="cotizacion" class="section">
     <div class="container text-center">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2 ">
+        <div class="col-md-8 col-md-offset-2">
           <div class="heading">
             <h3><span>Cotiza tu tatuaje</span></h3>
           </div>
@@ -217,48 +205,47 @@ include "./conexion/cone.php"
             <p>Llena el siguiente formulario para solicitar una cotización de tu próximo tatuaje.</p>
           </div>
         </div>
-        <div class="col-md-6" style="border: 2px solid black; border-radius: 5px;">
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="border: 2px solid black; border-radius: 5px;">
           <h4><i class="icon-envelope"></i><strong>Contactanos</strong></h4>
           <p>Para poder realizar una cotización, inicia sesión o regístrate, para asi, brindarte la mejor atención posible.</p>
           <div class="" id="contact-form">
-            <form action="cotizacion.php" method="POST" enctype="multipart/form-data">
-              <div class="form-group" hidden>
-                <input type="text" name="usuariosolicita" class="form-control" id="nombre" placeholder="Nombre usuario"
-                  value="<?php echo $_SESSION[" nombre"]; ?>" />
+            <form action="./cotizacion.php" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="number" name="usuariosolicita" class="form-control" id="idUsuario" value="<?php echo $_SESSION["idUsuario"]; ?>"/>
               </div>
               <div class="row col-md-8 col-md-offset-2">
                 <label>Seleciona al Tatuador</label>
                 <select name="tatuador" id="tatuador" class="form-group custom-input">
                   <option value="0">Seleccione:</option>
                   <?php
-                    $user = ("SELECT * FROM USUARIOS WHERE tipoUsuario=2");
-                    $resul = mysqli_query($conn, $user);
-                    while ($valores = mysqli_fetch_array($resul)) {
-                      echo '<option value="' . $valores['idUsuario'] . '">' . $valores['nombre'] . '</option>';
-                    }
-                    ?> 
+                  $user = ("SELECT * FROM USUARIOS WHERE tipoUsuario=2");
+                  $resul = mysqli_query($conn, $user);
+                  while ($valores = mysqli_fetch_array($resul)) {
+                    echo '<option value="' . $valores['idUsuario'] . '">' . $valores['nombre'] . '</option>';
+                  }
+                  ?>
                 </select>
               </div>
-
               <div class="row col-md-8 col-md-offset-2 text-center">
                 <img id="imgPreview" height="180" class="mx-auto" alt="Previsualización">
-                <br><input type="file" name="imagen" id="fileInput" accept="image/*"
-                  onchange="previewImage(event, '#imgPreview')" />
+                <br><input type="file" name="imagen" id="fileInput" accept="image/*" onchange="previewImage(event, '#imgPreview')" />
                 <br>
-                <input type="text" name="imagen64" id="file64" hidden />
+                <input type="text" name="imagen64" id="file64" hidden/>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <label>Color del tatuaje</label>
                   <select name="color" id="color" class="form-group custom-input">
                     <option value="0">Seleccione:</option>
-                    <!-- <?php
-                      $user = ("SELECT * FROM COLORES");
-                      $resul = mysqli_query($conn, $user);
-                      while ($valores = mysqli_fetch_array($resul)) {
-                        echo '<option value="' . $valores['idcolor'] . '">' . $valores['color'] . '</option>';
-                      }
-                      ?> -->
+                    <?php
+                    $user = ("SELECT * FROM COLORES");
+                    $resul = mysqli_query($conn, $user);
+                    while ($valores = mysqli_fetch_array($resul)) {
+                      echo '<option value="' . $valores['idcolor'] . '">' . $valores['color'] . '</option>';
+                    }
+                    ?>
                   </select>
 
                 </div>
@@ -267,38 +254,50 @@ include "./conexion/cone.php"
                     <label>Zona del cuerpo</label>
                     <select name="zonacuerpo" id="zonabody" class="form-group custom-input">
                       <option value="0">Seleccione:</option>
-                      <!-- <?php
-                        $user = ("SELECT * FROM ZONASCUERPO");
-                        $resul = mysqli_query($conn, $user);
-                        while ($valores = mysqli_fetch_array($resul)) {
-                          echo '<option value="' . $valores['idzonacuerpo'] . '">' . $valores['zonacuerpo'] . '</option>';
-                        }
-                        ?> -->
+                      <?php
+                      $user = ("SELECT * FROM ZONASCUERPO");
+                      $resul = mysqli_query($conn, $user);
+                      while ($valores = mysqli_fetch_array($resul)) {
+                        echo '<option value="' . $valores['idzonacuerpo'] . '">' . $valores['zonacuerpo'] . '</option>';
+                      }
+                      ?>
                     </select>
                   </div>
                 </div>
               </div>
-              <div class="col-md-8 col-md-offset-2" >
+              <div class="col-md-8 col-md-offset-2">
                 <label for="">Ingresa el tamaño del tatuaje en centimetros</label>
-                <input type="number" name="tamano" class="form-control custom-input" id="size"
-                  placeholder="Solo Digitos" style="border-radius: 4px;"/>
+                <input type="number" name="tamano" class="form-control custom-input" id="size" placeholder="Solo Digitos" style="border-radius: 4px;" />
               </div>
 
               <div class="col-md-12">
                 <label for="">Añade una descripción detallada sobre tu tatuaje</label>
-                <textarea class="custom-input" name="description" id="" cols="15" rows="2"
-                  placeholder="Descripción"></textarea>
+                <textarea class="custom-input" name="description" id="" cols="15" rows="2" placeholder="Descripción"></textarea>
               </div>
               <div class="col-md-4 col-md-offset-4">
                 <input type="submit" class="custom-button" value="Enviar">
               </div>
             </form>
+
           </div>
         </div>
-        <div class="col-md-6 text-center">
-          <h4>Find our location</h4>
-          <p>View from google map</p>
-          <!-- map -->
+      </div>
+    </div>
+  </section>
+  <!-- section cotizacion -->
+  <!-- section contact -->
+  <section id="contact" class="section gray">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 ">
+          <div class="heading">
+            <h3><span>Locacion</span></h3>
+          </div>
+          <div class="sub-heading">
+            <p>Aqui Tienes una forma de</p>
+          </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2 text-center">
           <img src="../assets/img/slide/2.jpg" alt="" class="mx-auto d-block img-fluid" style="width: 100%;">
         </div>
       </div>
@@ -330,8 +329,7 @@ include "./conexion/cone.php"
               <div class="credits">
 
                 <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc
-                  Themes</a> by <a
-                  href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
+                  Themes</a> by <a href="https://www.youtube.com/channel/UCDH0DJaVLkCDtl_YN9hhByw/featured?view_as=subscriber">ProOnliPc</a>
               </div>
             </div>
           </div>
@@ -364,7 +362,7 @@ include "./conexion/cone.php"
     });
   </script>
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#slippry-slider').slippry(
         defaults = {
           transition: 'vertical',

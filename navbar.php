@@ -18,41 +18,12 @@
                 <!-- nav inicio-->
 
                 <li><a id="index" href="/">Inicio</a></li>
-                <li><a id="nosotros" href="#nosotros">nosotros</a></li>
-                <li><a id="trabajos" href="#trabajos">Ideas Tatuajes</a></li>
-                <li><a id="informes" href="#informes">Informacion</a></li>
-                <li><a id="cotiza" href="/solicotizaciones/">solicitar cotizacion</a></li>
-                <li><a id="login" href="/login/"><?php echo (isset($_SESSION["idUsuario"])) ?  "Hola! " . $_SESSION["nombre"] : "Iniciar Sesión"; ?></a></li>
-                <?php
-                if (isset($_SESSION["tipoUsuario"]) && $_SESSION["tipoUsuario"] == 2) {
-
-                  echo <<<EOT
-                  <li><a id="vercoti" href="/cotizacioness/">Ver Cotizacion</a></li>
-                  <li><a id="agenda" href="/agenda/">Agendar Cita</a></li>
-                  <li class="current"><a id="perfil" href="/perfil/">Datos personales</a></li>
-                  EOT;
-                } else if (isset($_SESSION["tipoUsuario"]) && $_SESSION["tipoUsuario"] == 3){
-                  echo <<<EOT
-                 
-                  <li class="current"><a id="perfilusuario" href="/perfil/">Datos personales</a></li>
-  
-
-                  <li><a id="slicita" href="/solicita/">solicitar cita</a></li>
-                  <li><a href="#works">informacion Del Estudio</a></li>
-                  EOT;
-                }else if (isset($_SESSION["tipoUsuario"]) && $_SESSION["tipoUsuario"] == 1){
-                  echo <<<EOT
-                  <li class="current"><a id="registrotatua" href="/registrota">Registrar Tatuador</a></li>
-                  <li><a id="tatu" href="/tatuadores/"> Informacion de Tatuadores</a></li>
-                  <li><a id="agenda" href="/solicita/">Agendar Cita</a></li>
-                  <li class="current"><a id="perfilusuario" href="/perfil/">Perfil</a></li>
-                  <li><a id="responder" href="/cotizacioness/">Ver cotizacion</a></li>
-                  <li><a id="usuarios" href="/usuarios/">Usuarios</a></li>
-                  EOT;
-                }
-                ?>     
-                
-                <?php echo (isset($_SESSION["idUsuario"])) ? "<li><a href =\"../cerrarsesion.php\" id=\"cerrar\">Cerrar sesion</a></li>" : ""; ?>
+                <li><a id="nosotros" href="#about">nosotros</a></li>
+                <li><a id="trabajos" href="#works">Ideas Tatuajes</a></li>
+                <li><a id="informes" href="#contact">Información</a></li>
+                <li><a id="cotiza" href="#contact">solicitar cotización</a></li>
+                <li><a id="login" href="/login/"><?php echo (isset($_SESSION["idUsuario"])) ?  "Tú perfil " . $_SESSION["nombre"] : "Iniciar Sesión"; ?></a></li>      
+                <?php echo (isset($_SESSION["idUsuario"])) ? "<li><a href =\"./cerrarsesion.php\" id=\"cerrar\">Cerrar sesion</a></li>" : ""; ?>
               </ul>
             </nav>
           </div>
@@ -62,19 +33,35 @@
     </div>
   </header>
 </body>
-<!-- <script>
-document.getElementById("slicita").onclick = function() {
-    location.href = "../solicita/";
-  };
-  document.getElementById("usuarios").onclick = function() {
-    location.href = "../usuarios/";
-  };
 
-   document.getElementById("cerrar").onclick = function() {
+<script>
+   document.getElementById("login").onclick = function() {
+    location.href = "/login/";
+  };
+  document.getElementById("index").onclick = function() {
+    location.href = "index.php";
+  };
+  document.getElementById("cerrar").onclick = function() {
     location.href = "../cerrarsesion.php";
   };
+
 </script>
-<script>
+ <script>
+
+document.getElementById("nosotros").onclick = function() {
+    location.href = "../index.php#about";
+  };
+  document.getElementById("trabajos").onclick = function() {
+    location.href = "../index.php#works";
+  };  
+  document.getElementById("cotiza").onclick = function() {
+    location.href = "../index.php#cotizacion";
+  };
+  document.getElementById("informes").onclick = function() {
+    location.href = "../index.php#contact";
+  };
+</script>
+<!-- <script>
    document.getElementById("login").onclick = function() {
     location.href = "/login/";
   };
