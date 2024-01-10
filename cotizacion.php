@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include('./conexion/cone.php');
 
 if (isset($_POST['tatuador'], $_POST['usuariosolicita'],$_POST['color'], $_POST['tamano'],$_POST['zonacuerpo'],$_POST['description'], $_POST['imagen64'])){

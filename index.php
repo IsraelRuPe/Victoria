@@ -212,7 +212,7 @@ include "./conexion/cone.php"
           <p>Para poder realizar una cotización, inicia sesión o regístrate, para asi, brindarte la mejor atención posible.</p>
           <div class="" id="contact-form">
             <form action="./cotizacion.php" method="POST" enctype="multipart/form-data">
-              <div class="form-group">
+              <div class="form-group hidden">
                 <input type="number" name="usuariosolicita" class="form-control" id="idUsuario" value="<?php echo $_SESSION["idUsuario"]; ?>"/>
               </div>
               <div class="row col-md-8 col-md-offset-2">

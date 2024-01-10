@@ -22,8 +22,8 @@ session_start();
                 <div class="nav-item dropdown">
                 <a id="pag2" class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-person-fill"></i> Usuarios</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                <a id="pag3" href="tatuadores.php" class="dropdown-item">Tatuadores</a>
-                <a id="pag4" href="usuarios.php" class="dropdown-item">Clientes</a>
+                <a id="pag3" href="tatuadores.php" class="dropdown-item"> - Tatuadores</a>
+                <a id="pag4" href="usuarios.php" class="dropdown-item"> - Clientes</a>
                 </div>
                 </div>
                 TEXT;

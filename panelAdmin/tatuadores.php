@@ -1,5 +1,10 @@
 <?php
 session_start();
+include('../conexion/cone.php');
+
+$stmt = $conn->prepare("SELECT * FROM USUARIOS WHERE tipoUsuario != 3");
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,10 +18,24 @@ session_start();
     <link href="img/favicon.ico" rel="icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .custom-inputt {
+            width: 100%;
+            padding: 7px;
+            margin-bottom: 10px;
+            border: 1px solid #1a0c0c;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .inputlog {
+            text-align: center;
+            background-color: #ffff;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,7 +56,7 @@ session_start();
 
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                    <h2 class="text-primary mb-0"></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
@@ -135,87 +154,124 @@ session_start();
                 </div>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="../assets/img/Tt.png" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <?php
+                        while ($row = $result->fetch_assoc()) {
+                        ?>
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                                    <div class="card">
+                                        <img src="<?php echo base64_decode($row['userphoto']); ?>" alt="" width="100%" height="100%">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $row['apodo']; ?></h5>
+                                            <p class="card-text"><?php echo $row['nombre']  . ' ' . $row['paterno'] . ' ' . $row['materno']; ?></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                                <div class="ms-3">
-                                    <p class="mb-2">Total Sale</p>
-                                    <h6 class="mb-0">$1234</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-area fa-3x text-primary"></i>
-                                <div class="ms-3">
-                                    <p class="mb-2">Today Revenue</p>
-                                    <h6 class="mb-0">$1234</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                                <div class="ms-3">
-                                    <p class="mb-2">Total Revenue</p>
-                                    <h6 class="mb-0">$1234</h6>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        }
+                        $stmt->close();
+                        ?>
                     </div>
                 </div>
 
                 <section>
                     <div class="modal fade" id="modaltatu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Registar Tatuador</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <form action="#" method="POST" enctype="multipart/form-data">
+                                <div class="modal-body text-center">
+                                    <form action="/login/registrotatu.php" method="POST" enctype="multipart/form-data">
                                         <div class="row col-md-6 offset-md-3">
                                             <img id="imgPreview" height="180" style="border-radius: 50% 20% / 10% 40%;">
+                                            <input type="text" name="imagen64" id="file64" hidden />
+                                            <input type="hidden" name="redireccion" value="../panelAdmin/tatuadores.php">
+                                        </div>
+                                        <div class="row col-md-6 offset-md-3">
+                                            <p>Tipo Usuario</p>
+
+                                            <select name="Tipouser" id="Tipouser" class="form-group custom-inputt" onchange="mostrarImagenInput()" required>
+                                                <option value="0">Seleccione:</option>
+                                                <?php
+                                                include("../conexion/cone.php");
+                                                $user = ("SELECT * FROM TIPOS_USUARIO WHERE idTipoUsuario != 3");
+                                                $resul = mysqli_query($conn, $user);
+                                                while ($valores = mysqli_fetch_array($resul)) {
+                                                    echo '<option value="' . $valores['idTipoUsuario'] . '">' . $valores['tipoUsuario'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+
                                         </div>
                                         <div class="row col-md-6 offset-md-3">
                                             <label for="formFileSm" class="form-label">Foto de Perfil</label>
-                                            <input class="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" onchange="previewImage(event, '#imgPreview')">
+                                            <input class="form-control form-control-sm" name="imagen" id="fileInput" type="file" accept="image/*" onchange="previewImage(event, '#imgPreview')">
+                                        </div>
+                                        <div class="form-group col-md-8 offset-md-2">
+                                            <label for="message-text">Apodo</label>
+                                            <input type="text" class="form-control inputlog" name="apodo" id="apodo">
+                                        </div>
+                                        <div class="form-group col-md-8 offset-md-2">
+                                            <label for="message-text">Nombre(s)</label>
+                                            <input type="text" class="form-control inputlog" name="nombre" id="nombre">
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <label for="message-text" class="col-form-label">Nombre</label>
-                                                <input type="text" class="form-control" id="tatuname" value="<?php echo $rows['tamano']; ?>">
-
+                                                <label for="message-text" class="col-form-label">Apellido Paterno</label>
+                                                <input type="text" class="form-control inputlog" name="Apaterno" id="Apaterno">
                                             </div>
                                             <div class="col-6">
-                                                <label class="col-form-label">Apellidos</label>
-                                                <input type="text" class="form-control" id="tatusurname" value="<?php echo $rows['zonacuerpo']; ?>">
+                                                <label class="col-form-label">Apellido Materno</label>
+                                                <input type="text" class="form-control inputlog" name="Amaterno" id="Amaterno">
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Genero: </p>
+                                                <p>
+                                                    <select name="genero" id="genero" class="form-group custom-inputt" onchange="mostrarImagenInput()" required>
+                                                        <option value="0">Seleccione:</option>
+                                                        <?php
+                                                        include("../conexion/cone.php");
+                                                        $user = ("SELECT * FROM GENEROS");
+                                                        $resul = mysqli_query($conn, $user);
+                                                        while ($valores = mysqli_fetch_array($resul)) {
+                                                            echo '<option value="' . $valores['idGenero'] . '">' . $valores['genero'] . '</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="col-form-label">Telefono</label>
+                                                <input type="text" class="form-control inputlog" name="telefono" id="telefono">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 offset-md-3 form-group">
+                                            <label>Fecha de nacimiento</label>
+                                            <input type="date" class="form-control inputlog custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Correo</label>
-                                            <input type="email" class="form-control" id="tatumail1">
+                                            <input type="email" class="form-control inputlog" name="correo" id="tatumail1">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Contraseña</label>
-                                            <input type="password" class="form-control" id="tatupassword">
+                                            <label>Contraseña</label>
+                                            <div class="input-group align-items-center">
+                                                <input type="password" class="form-control inputlog custom-input" id="password" name="contrasena" required>
+                                                <span style="margin-left: 5px;" class="input-group-addon eye-icon" onclick="togglePassword('password')">
+                                                    <i class="bi-eye"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-success">Guardar</button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -253,6 +309,20 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script>
+        const fileInput = document.getElementById("fileInput");
+        let imagen64 = document.getElementById("file64");
+        fileInput.addEventListener("change", e => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", () => {
+                imagen64.value = reader.result;
+            })
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('opentatu').addEventListener('click', function() {
                 let miModal = new bootstrap.Modal(document.getElementById('modaltatu'));
@@ -260,6 +330,12 @@ session_start();
             });
 
         });
+
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            passwordInput.type = (passwordInput.type === "password") ? "text" : "password";
+        }
+
 
         function previewImage(event, querySelector) {
 

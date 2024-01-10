@@ -69,6 +69,8 @@ include('../conexion/cone.php');
             <h4 class="text-center"><i class="icon-envelope"></i><strong>Registar usuario</strong></h4>
             <!-- inicio registro usuario -->
             <form action="registrouser.php" method="post">
+              <input type="hidden" name="redireccion" value="./index.php">
+
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Nombre(s)</label>
@@ -77,15 +79,15 @@ include('../conexion/cone.php');
                 <div class="col-md-6" text-align="center">
                   <label>Elige tu Genero</label>
                   <select name="genero" id="genero" class="form-group custom-inputt">
-                  <option value="0">Seleccione:</option>
-                  <?php
+                    <option value="0">Seleccione:</option>
+                    <?php
                     $user = ("SELECT * FROM GENEROS");
                     $resul = mysqli_query($conn, $user);
                     while ($valores = mysqli_fetch_array($resul)) {
                       echo '<option value="' . $valores['idGenero'] . '">' . $valores['genero'] . '</option>';
                     }
-                    ?> 
-                </select>
+                    ?>
+                  </select>
 
                 </div>
               </div>
@@ -107,7 +109,7 @@ include('../conexion/cone.php');
                 </div>
                 <div class="col-md-6 form-group">
                   <label>Fecha de nacimiento</label>
-                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
+                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2025-12-31" required>
                 </div>
               </div>
               <div class="row">

@@ -306,46 +306,40 @@ $exeSQL = mysqli_query($conn, $SQL);
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Nombre(s)</label>
-                  <input type="text" name="nombre" class="form-control custom-input" id="nombre" required />
+                  <input type="text" name="nombre" class="form-control custom-input" id="nombre" value="<?php echo $_SESSION["nombre"]; ?>" />
                 </div>
                 <div class="col-md-6 form-group">
                   <label>Genero</label><br>
-                  <input type="text" value="" class="form-control custom-input" id="" readonly>
+                  <input type="text" value="" class="form-control custom-input" id="" value="<?php echo $_SESSION["genero"]; ?>" readonly>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Apellido Paterno</label>
-                  <input type="text" name="apellidopaterno" class="form-control custom-input" id="apellidopaterno" data-rule="minlen:4" required />
+                  <input type="text" name="apellidopaterno" class="form-control custom-input" id="apellidopaterno" value="<?php echo $_SESSION["apaterno"]; ?>" required />
                 </div>
                 <div class="col-md-6 form-group">
                   <label>Apellido Materno</label>
-                  <input type="text" name="apellidomaterno" class="form-control custom-input" id="apellidomaterno" data-rule="minlen:4" required />
+                  <input type="text" name="apellidomaterno" class="form-control custom-input" id="apellidomaterno" value="<?php echo $_SESSION["amaterno"]; ?>" required />
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Teléfono Celular</label>
-                  <input type="text" name="telefono" class="form-control custom-input" id="telefono" required />
+                  <input type="text" name="telefono" class="form-control custom-input" id="telefono" required value="<?php echo $_SESSION["telefono"]; ?>"/>
                 </div>
                 <div class="col-md-6 form-group">
                   <label>Fecha de nacimiento</label>
-                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
+                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2026-12-31" value="<?php echo $_SESSION["edad"]; ?>" required >
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Correo electronico</label>
-                  <input type="email" class="form-control custom-input" name="correo" data-rule="email" readonly />
+                  <input type="email" class="form-control custom-input" name="correo" data-rule="email"  value="<?php echo $_SESSION["correo"]; ?>" readonly />
                 </div>
-                <div class="col-md-6 form-group">
-                  <label>Contraseña</label>
-                  <div class="input-group ">
-                    <input type="password" class="form-control custom-input" id="password" name="newPassword" required>
-                    <span class="input-group-addon eye-icon" onclick="togglePassword('password')">👁️</span>
-                  </div>
-                </div>
+                
               </div>
               <div class="row">
                 <div class="col-md-8 col-md-offset-2 form-group text-center">

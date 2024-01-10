@@ -22,6 +22,17 @@ $exeSQL = mysqli_query($conn, $SQL);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .custom-inputt {
+            width: 100%;
+            padding: 7px;
+            margin-bottom: 10px;
+            border: 1px solid #1a0c0c;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
@@ -125,7 +136,7 @@ $exeSQL = mysqli_query($conn, $SQL);
                     <div class="row g-4">
                         <div class="col-sm-6 col-xl-3">
                             <div class="ms-3">
-                                <button id="openuser" type="button" class="btn btn-warning" data-bs-toggle="modal" >Añadir
+                                <button id="openuser" type="button" class="btn btn-warning" data-bs-toggle="modal">Añadir
                                     <i class="bi bi-person-plus"></i>
                                 </button>
                             </div>
@@ -160,7 +171,7 @@ $exeSQL = mysqli_query($conn, $SQL);
 
                                             <td>
                                                 <div style="padding-top:5px;">
-                                                    <button class="btn btn-secondary btn-ms "><a class="" href="/cotizacioness/eliminar.php?idcotizacion=<?php echo $rows['idcotizacion']; ?>">Eliminar</a></button>
+                                                    <button class="btn btn-secondary btn-ms "><a class="table__item__link" href="/login/deleteuser.php?idUsuario=<?php echo $rows['idUsuario']; ?>">Eliminar</a></button>
                                                 </div>
                                             </td>
 
@@ -182,49 +193,28 @@ $exeSQL = mysqli_query($conn, $SQL);
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="#" method="POST" enctype="multipart/form-data">
-                                        <div class="row col-md-6 offset-md-3 oculto">
-                                            <img id="imgPreview" height="180" style="border-radius: 50% 20% / 10% 40%;">
-                                        </div>
-                                        <div id="" class="row col-md-6 offset-md-3 oculto ">
-                                            <label for="formFileSm" class="form-label">Foto de Perfil</label>
-                                            <input class="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" onchange="previewImage(event, '#imgPreview')">
-                                        </div>
-                                        <div class=" row col-6">
-                                            <p>Tipo Usuario:
-                                                <select name="Usuarios" id="tipoUsuario" class="form-group">
-                                                    <option value="0">Seleccione:</option>
-                                                    <?php
-                                                    include("../conexion/cone.php");
-                                                    $user = ("SELECT * FROM TIPOS_USUARIO");
-                                                    $resul = mysqli_query($conn, $user);
-                                                    while ($valores = mysqli_fetch_array($resul)) {
-                                                        echo '<option value="' . $valores['idTipoUsuario'] . '">' . $valores['tipoUsuario'] . '</option>';
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </p>
-                                        </div>
+                                    <form action="../login/registrouser.php" method="POST" id="formuser">
+                                        <input type="hidden" name="redireccion" value="../panelAdmin/usuarios.php">
                                         <div class="form-group">
                                             <label>Nombre(s)</label>
-                                            <input type="text" class="form-control" id="username">
+                                            <input type="text" name="nombre" class="form-control" id="username">
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
                                                 <label for="message-text" class="col-form-label">Apellido Paterno</label>
-                                                <input type="text" class="form-control" id="usersurnamefather" value="<?php echo $rows['tamano']; ?>">
+                                                <input type="text" class="form-control" name="apellidopaterno" id="apellidopaterno">
 
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">Apellido Materno</label>
-                                                <input type="text" class="form-control" id="usersurname" value="<?php echo $rows['zonacuerpo']; ?>">
+                                                <input type="text" class="form-control" name="apellidomaterno" id="apellidomaterno">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <p>Elige tu Genero: </p>
+                                                <p>Genero: </p>
                                                 <p>
-                                                    <select name="genero" id="genero" class="form-group" onchange="mostrarImagenInput()">
+                                                    <select name="genero" id="genero" class="form-group custom-inputt" onchange="mostrarImagenInput()" required>
                                                         <option value="0">Seleccione:</option>
                                                         <?php
                                                         include("../conexion/cone.php");
@@ -239,22 +229,32 @@ $exeSQL = mysqli_query($conn, $SQL);
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">Telefono</label>
-                                                <input type="text" class="form-control" id="usersurname" value="<?php echo $rows['zonacuerpo']; ?>">
+                                                <input type="text" class="form-control" name="telefono" id="telefono">
                                             </div>
+                                        </div>
+                                        <div class="col-md-6 offset-md-3 form-group">
+                                            <label>Fecha de nacimiento</label>
+                                            <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2030-12-31" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Correo</label>
-                                            <input type="email" class="form-control" id="usermail1">
+                                            <input type="email" name="correo" class="form-control" id="usermail1">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Contraseña</label>
-                                            <input type="password" class="form-control" id="userpassword">
+                                            <label>Contraseña</label>
+                                            <div class="input-group align-items-center">
+                                                <input type="password" class="form-control custom-input" id="password" name="contrasena" required>
+                                                <span style="margin-left: 5px;" class="input-group-addon eye-icon" onclick="togglePassword('password')">
+                                                    <i class="bi-eye"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </form>
+
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -299,39 +299,98 @@ $exeSQL = mysqli_query($conn, $SQL);
 
         });
 
-        function previewImage(event, querySelector) {
-
-            //Recuperamos el input que desencadeno la acción
-            const input = event.target;
-
-            //Recuperamos la etiqueta img donde cargaremos la imagen
-            $imgPreview = document.querySelector(querySelector);
-
-            // Verificamos si existe una imagen seleccionada
-            if (!input.files.length) return
-
-            //Recuperamos el archivo subido
-            file = input.files[0];
-
-            //Creamos la url
-            objectURL = URL.createObjectURL(file);
-
-            //Modificamos el atributo src de la etiqueta img
-            $imgPreview.src = objectURL;
-
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            passwordInput.type = (passwordInput.type === "password") ? "text" : "password";
         }
 
-        function mostrarImagenInput() {
-            var tipoUsuario = document.getElementById("tipoUsuario");
-            var imagenInput = document.getElementById("imagenInput");
-
-            if (tipoUsuario.value === "tatuador") {
-                imagenInput.classList.remove("ocultar");
-            } else {
-                imagenInput.classList.add("ocultar");
-            }
-        }
+    
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('formuser').addEventListener('submit', function(event) {
+                // Recolectar los datos del formulario
+                let nombre = document.getElementById('username').value;
+                let apellidopaterno = document.getElementById('apellidopaterno').value;
+                let apellidomaterno = document.getElementById('apellidomaterno').value;
+                let genero = document.getElementById('genero').value;
+                let telefono = document.getElementById('telefono').value;
+                let fechaNacimiento = document.getElementById('fechaNacimiento').value;
+                let correo = document.getElementById('usermail1').value;
+                let contrasena = document.getElementById('password').value;
+
+                // Validacion(es) Campos vacios
+                if (nombre === '' || apellidopaterno === '' || apellidomaterno === '' || genero === '0' || telefono === '' || fechaNacimiento === '' || correo === '' || contrasena === '') {
+                    alert('Por favor, completa todos los campos correctamente.');
+                    event.preventDefault();
+                }
+                let fechaNacimientoDate = new Date(fechaNacimiento);
+                let hoy = new Date();
+                let edadMinima = 18;
+
+                if (hoy.getFullYear() - fechaNacimientoDate.getFullYear() < edadMinima) {
+                    alert('Debes tener al menos 18 años para registrarte.');
+                    event.preventDefault();
+                }
+
+                if (telefono.length !== 10) {
+                    alert('El número de teléfono debe tener exactamente 10 dígitos.');
+                    event.preventDefault();
+                    return;
+                }
+
+                if (contrasena.length < 8 || !/\d/.test(contrasena) || !/[a-zA-Z]/.test(contrasena)) {
+                    alert('La contraseña debe tener al menos 8 caracteres y contener tanto letras como números.');
+                    event.preventDefault();
+                }
+            });
+
+        });
+    </script>
+
+    <!-- <script>
+    $(document).ready(function () {
+        // Manejar el envío del formulario
+        $('#formuser').submit(function (event) {
+            // Prevenir el envío del formulario por defecto
+            event.preventDefault();
+
+            // Obtener el correo del formulario
+            var correo = $('#usermail1').val();
+
+            // Realizar la verificación asíncrona usando Ajax
+            $.ajax({
+                type: 'POST',
+                url: '/login/registrouser.php', // Cambiado a ruta absoluta
+                data: {
+                    correo: correo
+                },
+                success: function (response) {
+                    // El servidor ha respondido con el resultado de la verificación
+
+                    if (response == 'existente') {
+                        // El correo ya está registrado, mostrar una alerta
+                        alert('¡Error! El correo ya está registrado.');
+                    } else {
+                        // El correo no está registrado, puedes continuar con el proceso de registro
+                        alert('¡Correo disponible! Puedes proceder con el registro.');
+                        // Aquí puedes agregar código adicional si es necesario
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Manejar errores en la comunicación con el servidor
+                    console.error('Error en la comunicación con el servidor:', error);
+                    // Puedes mostrar una alerta más específica aquí si lo prefieres
+                    alert('Error en la comunicación con el servidor. Consulta la consola para más detalles.');
+                }
+            });
+        });
+    });
+</script> -->
+
+
+
 </body>
 
 </html>

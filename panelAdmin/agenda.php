@@ -4,6 +4,7 @@ session_start();
 //     header("Location: ../index.php");
 //     die();
 // }
+include "../conexion/cone.php"
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,6 +20,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
@@ -61,26 +63,6 @@ session_start();
                                 </div>
                             </a>
                             <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
@@ -92,16 +74,6 @@ session_start();
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
                                 <small>15 minutes ago</small>
                             </a>
                             <hr class="dropdown-divider">
@@ -122,67 +94,78 @@ session_start();
             </nav>
             <!-- Navbar End -->
             <!-- Sale & Revenue Start -->
-            <br><div class="container">
-                <div class="row col-md-8 offset-md-2">
-                    <div id='calendar'></div>
-                </div>
-            </div>
-            <!-- Sale & Revenue End -->
-            <div class="modal fade" id="modalEvento" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Datos del evento </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
+            <br>
+            <main>
+                <div class="container">
+                    <div class="row col-md-8 offset-md-2">
+                        <div id='calendar'></div>
+                    </div>
 
-                                <form action="" method="post">
+                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalEvento">
+                        Launch
+                    </button>
 
-                                    <div class="mb-3 visually-hidden ">
-                                        <label for="id" class="form-label">ID:</label>
-                                        <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="ID">
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalEvento" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Datos del evento </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+
+                                        <form action="" method="post">
+
+                                            <div class="mb-3 visually-hidden ">
+                                                <label for="id" class="form-label">ID:</label>
+                                                <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="ID">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="titulo" class="form-label">Título</label>
+                                                <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Título">
+
+                                            </div>
+                                            <div class="mb-3 visually-hidden">
+                                                <label for="" class="form-label">Fecha:</label>
+                                                <input type="text" class="form-control" name="fecha" id="fecha" aria-describedby="helpId" placeholder="Fecha:">
+
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="hora" class="form-label">Hora del evento:</label>
+                                                <input type="time" class="form-control" name="hora" id="hora" aria-describedby="helpId" placeholder="Hora:">
+
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="descripcion" class="form-label">Descripción</label>
+                                                <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="color" class="form-label">Color:</label>
+                                                <input type="color" class="form-control" name="color" id="color" aria-describedby="helpId" placeholder="Color:">
+
+                                            </div>
+
+                                        </form>
+
+
                                     </div>
-
-                                    <div class="mb-3">
-                                        <label for="titulo" class="form-label">Título</label>
-                                        <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Título">
-
-                                    </div>
-                                    <div class="mb-3 visually-hidden">
-                                        <label for="" class="form-label">Fecha:</label>
-                                        <input type="text" class="form-control" name="fecha" id="fecha" aria-describedby="helpId" placeholder="Fecha:">
-
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="hora" class="form-label">Hora del evento:</label>
-                                        <input type="time" class="form-control" name="hora" id="hora" aria-describedby="helpId" placeholder="Hora:">
-
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="descripcion" class="form-label">Descripción</label>
-                                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="color" class="form-label">Color:</label>
-                                        <input type="color" class="form-control" name="color" id="color" aria-describedby="helpId" placeholder="Color:">
-
-                                    </div>
-                                </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="borrarEvento()" class="btn btn-danger" id="btnBorrar" data-bs-dismiss="modal">Borrar</button>
+                                    <button type="button" onclick="agregarEvento()" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" onclick="borrarEvento()" class="btn btn-danger" id="btnBorrar" data-bs-dismiss="modal">Borrar</button>
-                            <button type="button" onclick="agregarEvento()" id="btnGuardar" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </main>
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded-top p-4">
@@ -209,10 +192,126 @@ session_start();
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="js/agenda.js"></script>
+    <script>
+        var modalEvento;
+
+        modalEvento = new bootstrap.Modal(document.getElementById('modalEvento'), {
+            keyboard: false
+        });
+        var calendar;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: "es",
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                dateClick: function(informacion) {
+
+                    limpiarFormulario(informacion.dateStr);
+                    // alert("Presionaste "+informacion.dateStr);
+                    modalEvento.show();
+
+                },
+                eventClick: function(informacion) {
+                    console.log(informacion);
+                    modalEvento.show();
+                    recuperarDatosEvento(informacion.event);
+
+                },
+                events: "./agenda/api.php"
+            });
+            calendar.render();
+        });
+    </script>
+    <script>
+        function recuperarDatosEvento(evento) {
+            limpiarErrores();
+            var fecha = evento.startStr.split("T");
+            var hora = fecha[1].split(":");
+
+            document.getElementById('id').value = evento.id;
+            document.getElementById('titulo').value = evento.title;
+            document.getElementById('fecha').value = fecha[0];
+            document.getElementById('hora').value = hora[0] + ":" + hora[1];
+            document.getElementById('descripcion').value = evento.extendedProps.descripcion;
+            document.getElementById('color').value = evento.backgroundColor;
+
+            document.getElementById('btnBorrar').removeAttribute('disabled', "");
+            document.getElementById('btnGuardar').removeAttribute('disabled', "");
+
+
+        }
+
+        function borrarEvento() {
+            enviarDatosApi("borrar");
+
+        }
+
+        function agregarEvento() {
+
+            if (document.getElementById('titulo').value == "") {
+                document.getElementById('titulo').classList.add('is-invalid');
+                return true;
+            }
+
+
+
+            accion = (document.getElementById("id").value == 0) ? "agregar" : "actualizar";
+            enviarDatosApi(accion);
+
+        }
+
+        function enviarDatosApi(accion) {
+            fetch("./agenda/api.php?accion=" + accion, {
+                    method: "POST",
+                    body: recolectarDatos()
+                })
+                .then(data => {
+                    console.log(data);
+                    calendar.refetchEvents();
+                    modalEvento.hide();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        function recolectarDatos() {
+            var evento = new FormData();
+            evento.append("title", document.getElementById('titulo').value);
+            evento.append("fecha", document.getElementById('fecha').value);
+            evento.append("hora", document.getElementById('hora').value);
+            evento.append("descripcion", document.getElementById('descripcion').value);
+            evento.append("color", document.getElementById('color').value);
+            evento.append("id", document.getElementById('id').value);
+            return evento;
+        }
+
+        function limpiarFormulario(fecha) {
+            limpiarErrores();
+            document.getElementById('titulo').value = "";
+            document.getElementById('fecha').value = fecha;
+            document.getElementById('hora').value = "12:00";
+            document.getElementById('descripcion').value = "";
+            document.getElementById('color').value = "";
+            document.getElementById('id').value = "";
+            document.getElementById('btnBorrar').setAttribute('disabled', "disabled");
+        }
+
+        function limpiarErrores() {
+            document.getElementById('titulo').classList.remove('is-invalid');
+        }
+    </script>
+
 </body>
 
 </html>

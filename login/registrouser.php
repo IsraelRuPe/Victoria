@@ -1,52 +1,109 @@
 <?php
+// Iniciar sesión
+// session_start();
 
-//session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+// Incluir la conexión a la base de datos
 include('../conexion/cone.php');
 
-if (isset( $_POST['nombre'], $_POST['apellidopaterno'], $_POST['apellidomaterno'], $_POST['telefono'], $_POST['fechaNacimiento'],$_POST['genero'],$_POST['correo'], $_POST['contrasena'],)){
-    $nombre = ($_POST['nombre']);
-    $apellidopaterno = ($_POST['apellidopaterno']);
-    $apellidomaterno = ($_POST['apellidomaterno']);
-    $telefono = ($_POST['telefono']);
-    $fechanaci = ($_POST['fechaNacimiento']);
-    $genero = ($_POST['genero']);
-    $correo = ($_POST['correo']);
-    $contrasena = ($_POST['contrasena']);
-
-    /*Foreach($_POST as $campo => $valor){
-        echo "- ". $campo ." = ". $valor;
-      }*/
-}
-else{
-   header("Location: ../registro");
+if (isset($_POST['nombre'], $_POST['apellidopaterno'], $_POST['apellidomaterno'], $_POST['telefono'], $_POST['fechaNacimiento'], $_POST['genero'], $_POST['correo'], $_POST['contrasena'], $_POST['redireccion'])) {
+    $nombre = validarCampo($_POST['nombre']);
+    $apellidopaterno = validarCampo($_POST['apellidopaterno']);
+    $apellidomaterno = validarCampo($_POST['apellidomaterno']);
+    $telefono = validarCampo($_POST['telefono']);
+    $fechanaci = validarCampo($_POST['fechaNacimiento']);
+    $genero = validarCampo($_POST['genero']);
+    $correo = validarCampo($_POST['correo']);
+    $contrasena = validarCampo($_POST['contrasena']);
+    $redireccion = validarCampo($_POST['redireccion']);
 
 
-}
-$SQL = "insert into USUARIOS(correo, contrasenia, nombre, paterno, materno, fechaNacimiento, genero, tipoUsuario, fechaRegistro,telefono)
-VALUES ('$correo','$contrasena','$nombre','$apellidopaterno','$apellidomaterno','$fechanaci','$genero','3',now(),'$telefono');";
-echo $SQL;
-$exeSQL = mysqli_query($conn, $SQL);
+    $sql = "SELECT COUNT(*) as count FROM USUARIOS WHERE correo = '$correo'";
+    $resultado = mysqli_query($conn, $sql);
+    $fila = mysqli_fetch_assoc($resultado);
+
+    // Verificar si el correo está registrado
+    if ($fila['count'] > 0) {
+        // El correo ya está registrado, mostrar un mensaje de error o redirigir a otra página
+        header("Location: ../registro/?error=correo_existente");
+        exit();
+    } else {
+        // El correo no está registrado, puedes continuar con el proceso de registro
+        // ...
+    }
+
+    if (empty($nombre) || empty($apellidopaterno) || empty($apellidomaterno) || empty($telefono) || empty($fechanaci) || empty($genero) || empty($correo) || empty($contrasena) || empty($redireccion)) {
+        header("Location: ../registro/?error=falta_datos");
+        exit();
+    }
+
+    $fechaNacimiento = new DateTime($fechanaci);
+    $hoy = new DateTime();
+    $edad = $hoy->diff($fechaNacimiento)->y;
+    $edadMinima = 18;
+
+    if ($edad < $edadMinima) {
+        header("Location: ../registro/?error=menor_edad");
+        exit();
+    }
+    //valiacion de 10 digitos
+    if (strlen($telefono) !== 10 || !is_numeric($telefono)) {
+        header("Location: ../registro/?error=telefono_invalido");
+        exit();
+    }
+
+    // Validar la dirección de correo electrónico
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../registro/?error=correo_invalido");
+        exit();
+    }
+    // Validar la contraseña 
+    if (strlen($contrasena) < 8 || !preg_match('/\d/', $contrasena) || !preg_match('/[a-zA-Z]/', $contrasena)) {
+        header("Location: ../registro/?error=contrasena_invalida");
+        exit();
+    }
+    $hashedPassword = password_hash($contrasena, PASSWORD_DEFAULT);
+
+    // Consulta SQL para insertar el usuario en la base de datos
+    $SQL = "INSERT INTO USUARIOS (correo, contrasenia, nombre, paterno, materno, fechaNacimiento, genero, tipoUsuario, fechaRegistro, telefono, apodo, userphoto)
+            VALUES ('$correo', '$hashedPassword', '$nombre', '$apellidopaterno', '$apellidomaterno', '$fechanaci', '$genero', '3', NOW(), '$telefono', NULL, NULL);";
+
+    // Ejecutar la consulta
+    $exeSQL = mysqli_query($conn, $SQL);
+
+    // Verificar el resultado de la consulta
+    if ($exeSQL) {
+        // Obtener el ID del usuario recién insertado
+        $idUsuario = mysqli_insert_id($conn);
+
+        // Establecer variables de sesión
+        $_SESSION["idusuario"] = $idUsuario;
+        $_SESSION["nombre"] = $nombre;
+        $_SESSION["apaterno"] = $apellidopaterno;
+        $_SESSION["amaterno"] = $apellidomaterno;
+        $_SESSION["telefono"] = $telefono;
+        $_SESSION["correo"] = $correo;
+        $_SESSION["genero"] = $genero;
+        $_SESSION["edads"] = $edad;
 
 
-if ($exeSQL) {
-
-
-    $SQL2 = "SELECT LAST_INSERT_ID() as idusuario; ";
-    $exeSQL2 = mysqli_query($conn, $SQL2);
-    $arrayUsu = mysqli_fetch_array($exeSQL2);
-    $_SESSION["idusuario"]=$arrayUsu['idusuario'];
-    $_SESSION["nombre"]=$nombre;
-    $_SESSION["apaterno"]=$apellidopaterno;
-    $_SESSION["amaterno"]=$apellidomaterno;
-    $_SESSION["telefono"]=$telefono;
-    $_SESSION["correo"]=$correo;
-    
-    
-    header(
-        "Location: ../login/index.php");
+        header("Location: $redireccion");
+        exit();
+    } else {
+        header("Location: ../registro/?error=registro_fallido");
+        exit();
+    }
 } else {
-    echo "<script>
-    location.href = \"/registro/?error=1\";
-    </script>";
+    header("Location: ../registro/?error=falta_datos");
+    exit();
+}
+
+function validarCampo($campo)
+{
+    $campo = trim($campo); // Eliminar espacios en blanco al principio y al final
+    $campo = stripslashes($campo); // Eliminar barras invertidas
+    $campo = htmlspecialchars($campo); // Convertir caracteres especiales a entidades HTML
+    return $campo;
 }

@@ -5,9 +5,24 @@ session_start();
 //     die();
 // }
 include('./php/conexion.php');
-$SQL = "SELECT * FROM COTIZACIONES";
+ $SQL = "SELECT * FROM COTIZACIONES";
 $exeSQL = mysqli_query($conn, $SQL);
+?> 
+<?php
+// session_start();
+// include('../conexion/cone.php');
+// $idusuario = $_SESSION["idUsuario"];
+// $idcotizacion = $_GET["idcotizacioon"];
+// $SQL = "select  idcotizacioon as idcotizacion, fechahora as fecha, usuario.nombre,  concat(usuario.paterno, ' ', usuario.materno) as apellido , usuario.telefono,usuario.correo,tamano,zonascuerpo.zonacuerpo,colores.color,descripcion,imagen 
+// from COTIZACIONES 
+// inner join USARIOSU as usuario on cotizaciones.usuario = usuario.idUsuario
+// inner join USARIOSU as tatuador on cotizaciones.tatuador = tatuador.idUsuario
+// inner join COLORES on cotizaciones.color = colores.idcolor
+// inner join ZONASCUERPO on cotizaciones.zonacuerpo = zonascuerpo.idzonacuerpo 
+// where tatuador.idUsuario = $idusuario";
+// $exeSQL = mysqli_query($conn, $SQL);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -2,44 +2,61 @@
 session_start();
 include('../conexion/cone.php');
 
-if (isset($_POST['loginemail'], $_POST['passlogin'])){
+if (isset($_POST['loginemail'], $_POST['passlogin'])) {
+    $correo = $_POST['loginemail'];
+    $contrasena = $_POST['passlogin'];
 
-    $contrasena = ($_POST['passlogin']);
-    $correo = ($_POST['loginemail']);
+    // Consulta preparada para evitar inyección SQL
+    $SQL = "SELECT idUsuario, correo, telefono, nombre, paterno, materno, GENEROS.genero, GENEROS.idGenero, fechaNacimiento, TIPOS_USUARIO.tipoUsuario, TIPOS_USUARIO.idTipoUsuario, contrasenia
+            FROM USUARIOS
+            INNER JOIN TIPOS_USUARIO ON USUARIOS.tipoUsuario = TIPOS_USUARIO.idTipoUsuario
+            INNER JOIN GENEROS ON USUARIOS.genero = GENEROS.idGenero
+            WHERE correo = ?";
 
-}
-else{
-  header("Location: index.php");
-  
-   die();
-}
-$SQL = "SELECT idUsuario,correo,telefono,nombre,paterno,materno,GENEROS.genero, GENEROS.idGenero, fechaNacimiento, TIPOS_USUARIO.tipoUsuario, TIPOS_USUARIO.idTipoUsuario
-FROM USUARIOS
-inner join  TIPOS_USUARIO on USUARIOS.tipoUsuario = TIPOS_USUARIO.idTipoUsuario
-inner join	GENEROS on USUARIOS.genero = GENEROS.idGenero
-WHERE   correo='$correo' && contrasenia='$contrasena';";
-$exeSQL = mysqli_query($conn, $SQL);
-$validarUsuario =  mysqli_num_rows($exeSQL);
+    $stmt = mysqli_prepare($conn, $SQL);
+    mysqli_stmt_bind_param($stmt, "s", $correo);
+    mysqli_stmt_execute($stmt);
 
-if ($validarUsuario==1) {
-    $arrayUsu = mysqli_fetch_array($exeSQL);
-    $_SESSION["idUsuario"]=$arrayUsu['idUsuario'];
-    $_SESSION["correo"]=$arrayUsu['correo'];
-    $_SESSION["telefono"]=$arrayUsu['telefono'];
-    $_SESSION["nombre"]=$arrayUsu['nombre'];
-    $_SESSION["apaterno"]=$arrayUsu['paterno'];
-    $_SESSION["amaterno"]=$arrayUsu['materno'];
-    $_SESSION["genero"]=$arrayUsu['genero'];
-    $_SESSION["idGenero"]=$arrayUsu['idGenero'];
-    $_SESSION["tipoUsuario"]=$arrayUsu['tipoUsuario'];
-    $_SESSION["idTipoUsuario"]=$arrayUsu['idTipoUsuario'];
-    $_SESSION["fechaNacimiento"]=$arrayUsu['fechaNacimiento'];
+    $result = mysqli_stmt_get_result($stmt);
 
-   
-    header("Location: ../panel");
+    if ($row = mysqli_fetch_assoc($result)) {
+        // Verificar la contraseña usando password_verify
+        if (password_verify($contrasena, $row['contrasenia'])) {
+            // Contraseña correcta, puedes realizar acciones de inicio de sesión aquí
+            $_SESSION["idUsuario"] = $row['idUsuario'];
+            $_SESSION["correo"] = $row['correo'];
+            $_SESSION["telefono"] = $row['telefono'];
+            $_SESSION["nombre"] = $row['nombre'];
+            $_SESSION["apaterno"] = $row['paterno'];
+            $_SESSION["amaterno"] = $row['materno'];
+            $_SESSION["genero"] = $row['genero'];
+            $_SESSION["idGenero"] = $row['idGenero'];
+            $_SESSION["tipoUsuario"] = $row['tipoUsuario'];
+            $_SESSION["idTipoUsuario"] = $row['idTipoUsuario'];
+            $_SESSION["fechaNacimiento"] = $row['fechaNacimiento'];
+
+            // Regenerar el ID de sesión para mejorar la seguridad
+            session_regenerate_id();
+
+            header("Location: ../panelAdmin");
+            exit();
+        } else {
+            // Contraseña incorrecta
+            echo "<script>
+                location.href = \"/login/?error=1\";
+                </script>";
+        }
+    } else {
+        // Usuario no encontrado
+        echo "<script>
+            location.href = \"/login/?error=1\";
+            </script>";
+    }
+
+    mysqli_stmt_close($stmt);
 } else {
-
-    echo "<script>
-    location.href = \"/login/?error=1\";
-    </script>";
+    // Datos de inicio de sesión no proporcionados
+    header("Location: index.php");
+    exit();
 }
+?>
