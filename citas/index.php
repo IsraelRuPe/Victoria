@@ -99,7 +99,7 @@ $exeSQL = mysqli_query($conn, $SQL);
                       <td><?php echo $descripcion; ?></td>
                       <td>
                         <div style="padding-top:5px;">
-                          <button class="btn btn-secondary btn-ms "><a class="" href="./index.php?action=agendar&id=<?php echo $rows['idcotizacioon']; ?>&tatuador=<?php echo $rows['tatuador']?>">Agendar</a></button>
+                          <button class="btn btn-secondary btn-ms "><a class="" href="./index.php?action=agendar&id=<?php echo $rows['idcotizacioon']; ?>&tatuador=<?php echo $rows['tatuador'] ?>">Agendar</a></button>
                         </div>
                       </td>
                     </tr>
@@ -252,19 +252,23 @@ $exeSQL = mysqli_query($conn, $SQL);
               <?php
               if (isset($_GET['action']) && $_GET['action'] === 'agendar' && isset($_GET['id'])) {
                 $idcotizacioon = $_GET['id'];
+                $tatuador = $_GET['tatuador'];
+
               ?>
                 <div class="row">
                   <div class="col-md-6 form-group text-center">
                     <label for="">Inserte el "ID" de su cotizacion</label>
-                    <input type="number" class="form-control text-center" name="" id="id_coti" value="<?php echo $idcotizacioon; ?>" readonly>
+                    <input type="number" class="form-control text-center" name="id_coti" id="id_coti" value="<?php echo $idcotizacioon; ?>" readonly>
 
                   </div>
                   <div class="col-md-6 form-group text-center">
                     <label for="">Tatuador</label><br>
                     <!-- Determinar que type ira para la base de datos -->
-                    <input type="text" class="form-control text-center" readonly>
+                    <input type="text" class="form-control text-center" value="<?php echo $tatuador; ?>" readonly>
                   </div>
                   <input type="text" value="" id="id_user" hidden>
+
+
                 </div>
                 <div class="col-md-8 col-md-offset-2 form-group text-center">
                   <label for="fecha">Fecha:</label>
@@ -276,15 +280,22 @@ $exeSQL = mysqli_query($conn, $SQL);
                   </div>
                 </div>
                 <div class="col-md-6 col-md-offset-3 text-center form-group">
-                  <label>Hora</label><br>
-                  <select name="zonacuerpo" id="zonabody" class="form-group custom-input">
+                  <label for="hora">Hora</label><br>
+                  <select name="hora" id="hora" class="form-group custom-input">
                     <option value="0">Seleccione:</option>
+                    <?php
+                    $query_horarios = "SELECT * FROM HORARIOS";
+                    $result_horarios = mysqli_query($conn, $query_horarios);
 
+                    while ($horario = mysqli_fetch_array($result_horarios)) {
+                      echo '<option value="' . $horario['idhorario'] . '">' . $horario['horarioinicio'] . ' - ' . $horario['horariofin'] . '</option>';
+                    }
+                    ?>
                   </select>
                 </div>
                 <div class="col-md-4 col-md-offset-4 text-center form-group ">
-                  <button type="button" class="btn btn-block custom-button" style="border-radius: 5px;">Programar
-                    cita</button>
+                  <input type="submit" class="btn btn-block custom-button" style="border-radius: 5px;" value="Programar cita">
+
                 </div>
             </form>
           <?php
@@ -327,19 +338,19 @@ $exeSQL = mysqli_query($conn, $SQL);
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Teléfono Celular</label>
-                  <input type="text" name="telefono" class="form-control custom-input" id="telefono" required value="<?php echo $_SESSION["telefono"]; ?>"/>
+                  <input type="text" name="telefono" class="form-control custom-input" id="telefono" required value="<?php echo $_SESSION["telefono"]; ?>" />
                 </div>
                 <div class="col-md-6 form-group">
                   <label>Fecha de nacimiento</label>
-                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2026-12-31" value="<?php echo $_SESSION["edad"]; ?>" required >
+                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2026-12-31" value="<?php echo $_SESSION["edad"]; ?>" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label>Correo electronico</label>
-                  <input type="email" class="form-control custom-input" name="correo" data-rule="email"  value="<?php echo $_SESSION["correo"]; ?>" readonly />
+                  <input type="email" class="form-control custom-input" name="correo" data-rule="email" value="<?php echo $_SESSION["correo"]; ?>" readonly />
                 </div>
-                
+
               </div>
               <div class="row">
                 <div class="col-md-8 col-md-offset-2 form-group text-center">
@@ -395,18 +406,71 @@ $exeSQL = mysqli_query($conn, $SQL);
   </footer>
   <a href="#" class="scrollup"><i class="fa fa-angle-up fa-2x"></i></a>
   <!-- javascript -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../assets/js/bootstrap.js"></script>
-  <script src="../assets/js/jquery.nav.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+
   <script>
+   $(document).ready(function () {
+      $('#fecha').change(function () {
+         var fechaSeleccionada = $(this).val();
+         console.log('Fecha seleccionada:', fechaSeleccionada);
+
+         // Realiza una petición AJAX para obtener los horarios disponibles según la fecha
+         $.ajax({
+            url: './horarios.php', // Reemplaza con la URL correcta de tu script PHP
+            method: 'POST',
+            data: { fecha: fechaSeleccionada },
+            success: function (response) {
+               // Limpia las opciones actuales
+               $('#hora').empty();
+
+               // Agrega las nuevas opciones
+               $('#hora').append(response);
+            }
+         });
+      });
+   });
+</script>
+  <!-- <script>
     $(document).ready(function() {
-      $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true
+      // Configurar el datepicker con el formato deseado
+      $('#fecha').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy' // Cambia el formato a tu preferencia
+      });
+
+      // Asociar el evento change al campo de fecha utilizando datepicker
+      $('#fecha').on('changeDate', function(e) {
+        // Obtener la fecha seleccionada y convertirla al formato deseado
+        var fechaSeleccionada = moment(e.date).format('YYYY-MM-DD');
+        console.log('Fecha seleccionada:', fechaSeleccionada);
+
+        // Realiza una petición AJAX para obtener los horarios disponibles según la fecha
+        $.ajax({
+          url: './horarios.php', // Reemplaza con la URL correcta de tu script PHP
+          method: 'POST',
+          data: {
+            fecha: fechaSeleccionada
+          },
+          success: function(response) {
+            console.log('Respuesta del servidor:', response);
+            // Limpia las opciones actuales
+            $('#hora').empty();
+
+            // Agrega las nuevas opciones
+            $('#hora').append(response);
+          },
+          error: function(xhr, status, error) {
+            console.error('Error en la solicitud AJAX:', error);
+          }
+        });
       });
     });
-  </script>
+  </script> -->
 
 
 

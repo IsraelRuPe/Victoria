@@ -5,9 +5,9 @@ session_start();
 //     die();
 // }
 include('./php/conexion.php');
- $SQL = "SELECT * FROM COTIZACIONES";
+$SQL = "SELECT * FROM COTIZACIONES";
 $exeSQL = mysqli_query($conn, $SQL);
-?> 
+?>
 <?php
 // session_start();
 // include('../conexion/cone.php');
@@ -78,7 +78,7 @@ $exeSQL = mysqli_query($conn, $SQL);
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?php echo  $_SESSION["nombre"]?></span>
+                            <span class="d-none d-lg-inline-flex"><?php echo  $_SESSION["nombre"] ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">Mi Perfil</a>
@@ -137,8 +137,9 @@ $exeSQL = mysqli_query($conn, $SQL);
                                                             <td><img src="<?php echo base64_decode($rows['imagen']); ?>" alt="" width="100" height="100"></td>
                                                             <td>
                                                                 <div style="padding-top:5px;">
-                                                                    <button type="button" class="btn btn-secondary btn-ms" data-bs-toggle="modal" data-bs-target="#modalReply" id="btnView">Ver Más</button>
-                                                                    <button class="btn btn-secondary btn-ms "><a class="" href="/cotizacioness/eliminar.php?idcotizacion=<?php echo $rows['idcotizacion']; ?>">Eliminar</a></button>
+                                                                    <button type="button" class="btn btn-secondary " data-bs-toggle="modal" data-bs-target="#modalView" id="btnView">Ver Más</button>
+                                                                    <button type="button" class="btn btn-secondary btn-ms" data-bs-toggle="modal" data-bs-target="#modalReply" id="btnReply">Responder</button>
+                                                                    <button class="btn btn-secondary btn-ms"><a class="" href="/cotizacioness/eliminar.php?idcotizacion=<?php echo $rows['idcotizacion']; ?>">Eliminar</a></button>
 
                                                                 </div>
                                                             </td>
@@ -157,6 +158,51 @@ $exeSQL = mysqli_query($conn, $SQL);
                     </div>
                 </section>
                 <section>
+                    <div id="modalView" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content text-center">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel" style="color: black;">Cotización</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
+                                </div>
+
+                                <div class="modal-body" id="modalBody">
+                                    <form>
+                                        <div class="mb-3">
+                                            <img src="" alt="" width="100" height="100">
+                                        </div>
+                                        <div class="col-md-6 offset-md-3">
+                                            <label class="col-form-label">Tinta</label>
+                                            <input type="text" class="form-control" id="" value="<?php echo $rows['color']; ?>">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="message-text" class="col-form-label">Tamaño</label>
+                                                <input type="text" class="form-control" id="" value="<?php echo $rows['tamano']; ?>">
+
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="col-form-label">Zona en el Cuerpo</label>
+                                                <input type="text" class="form-control" id="" value="<?php echo $rows['zonacuerpo']; ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="col-form-label">Descripcion</label>
+                                            <textarea class="form-control" id="" value="<?php echo $rows['descripcion']; ?>"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
                     <div id="modalReply" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content text-center">
@@ -164,60 +210,36 @@ $exeSQL = mysqli_query($conn, $SQL);
                                     <h5 class="modal-title" id="exampleModalLabel" style="color: black;">Cotización</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
                                 </div>
-                               
-                                    <div class="modal-body" id="modalBody">
-                                        <form>
-                                            <div class="mb-3">
-                                                <img src="" alt="" width="100" height="100">
-                                            </div>
-                                            <div class="col-md-6 offset-md-3">
-                                                <label class="col-form-label">Tinta</label>
-                                                <input type="text" class="form-control" id="" value="<?php echo $rows['color']; ?>">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <label for="message-text" class="col-form-label">Tamaño</label>
-                                                    <input type="text" class="form-control" id="" value="<?php echo $rows['tamano']; ?>">
 
-                                                </div>
-                                                <div class="col-6">
-                                                    <label class="col-form-label">Zona en el Cuerpo</label>
-                                                    <input type="text" class="form-control" id="" value="<?php echo $rows['zonacuerpo']; ?>">
-                                                </div>
-                                            </div>
+                                <div class="modal-body" id="modalAnswer">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label class="col-form-label">Correo Remitente</label>
+                                            <input type="text" class="form-control" id="">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="col-form-label">Correo Destinatario</label>
+                                            <input type="text" class="form-control" id="">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="col-form-label">Mensaje de respuesta a cotizacion</label>
+                                            <textarea class="form-control" id=""></textarea>
 
-                                            <div class="col-12">
-                                                <label class="col-form-label">Descripcion</label>
-                                                <textarea class="form-control" id="" value="<?php echo $rows['descripcion']; ?>"></textarea>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-body oculto" id="modalAnswer">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label class="col-form-label">Correo Destinatario</label>
-                                                <input type="text" class="form-control" id="">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="col-form-label">Correo Remitente</label>
-                                                <input type="text" class="form-control" id="">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="col-form-label">Mensaje de respuesta a cotizacion</label>
-                                                <textarea class="form-control" id=""></textarea>
+                                        </div>
+                                    </form>
+                                </div>
 
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" id="btnAnswer">Responder</button>
-                                        <button type="button" class="btn btn-success oculto" id="btnBack">Regresar</button>
-                                    </div>
-                               
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" id="btnAnswer">Responder</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </section>
+
             </main>
 
             <!-- Footer Start -->

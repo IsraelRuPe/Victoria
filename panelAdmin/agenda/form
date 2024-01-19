@@ -1,0 +1,87 @@
+ <div class="modal-body">
+     <div class="container-fluid">
+
+         <form action="" method="post">
+
+             <div class="mb-3 visually-hidden ">
+                 <label for="id" class="form-label">ID:</label>
+                 <input type="text" class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="ID">
+             </div>
+
+             <div class="mb-3">
+                 <label for="titulo" class="form-label">Título</label>
+                 <input type="text" class="form-control" name="titulo" id="titulo" aria-describedby="helpId" placeholder="Título">
+
+             </div>
+             <div class="row">
+                 <div class="col-md-6">
+                     <label class="form-label">ID Usuario</label>
+                     <input type="number" class="form-control" name="id_usuario" id="id_usuario" aria-describedby="helpId">
+
+                 </div>
+                 <div class="col-md-6">
+                     <label class="form-label">ID Cotizacion</label>
+                     <input type="number" class="form-control" name="id_cotizacion" id="id_cotizacion" aria-describedby="helpId">
+
+                 </div>
+             </div>
+
+             <div class="mb-3 visually-hidden ">
+                 <label for="" class="form-label">Fecha:</label>
+                 <input type="text" class="form-control" name="fecha" id="fecha" aria-describedby="helpId" placeholder="Fecha:">
+
+             </div>
+             <div class="row">
+                 <div class="col-md-6">
+                     <label for="horario" class="form-label">Selecciona un horario</label>
+                     <select name="hora" id="hora" class="form-group custom-input">
+                         <option value="0">Selecciona:</option>
+                         <?php
+                            $query_horarios = "SELECT * FROM HORARIOS";
+                            $result_horarios = mysqli_query($conn, $query_horarios);
+
+                            while ($horario = mysqli_fetch_array($result_horarios)) {
+                                echo '<option value="' . $horario['idhorario'] . '">' . $horario['horarioinicio'] . ' - ' . $horario['horariofin'] . '</option>';
+                            }
+                            ?>
+                     </select>
+                 </div>
+                 <div class="col-md-6">
+                     <label for="horario" class="form-label">Selecciona el Estado</label>
+                     <select name="estadocita" id="estadocita" class="form-group custom-input">
+                         <option value="0">Selecciona:</option>
+                         <?php
+                            $query_Estados = "SELECT * FROM ESTADO_CITAS";
+                            $result_Estados = mysqli_query($conn, $query_Estados);
+
+                            while ($Estado = mysqli_fetch_array($result_Estados)) {
+                                echo '<option value="' . $Estado['id_estado'] . '">' . $Estado['Estado'] . '</option>';
+                            }
+                            ?>
+                     </select>
+                 </div>
+             </div>
+
+             <div class="mb-3">
+                 <label for="descripcion" class="form-label">Descripción</label>
+                 <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
+             </div>
+
+             <div class="mb-3">
+                 <label for="color" class="form-label">Color:</label>
+                 <input type="color" class="form-control" name="color" id="color" aria-describedby="helpId" placeholder="Color:">
+
+             </div>
+
+         </form>
+
+
+     </div>
+ </div>
+
+
+ ///sentencia SQL
+ SELECT h.horarioinicio, h.horariofin
+ FROM HORARIOS h
+ LEFT JOIN CITAS c ON h.idhorario = c.idHorario AND c.FechaReserva = @fecha_seleccionada
+ WHERE c.idCita IS NULL;

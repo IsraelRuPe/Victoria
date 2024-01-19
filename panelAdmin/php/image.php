@@ -1,11 +1,12 @@
 <?php
-include "conexion.php";
+session_start();
+include "./conexion.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $descripcion = $_POST["descrimage"];
-
+    $idtatu = $_SESSION["idUsuario"];
     // Directorio donde se almacenarán las imágenes
     $directorio = "../img/galeriatatu/";
 
@@ -16,14 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     echo "Nombre de la imagen: " . $nombreImagen . "<br>";
     echo "Ruta temporal: " . $rutaTemporal . "<br>";
     echo "Ruta de destino: " . $rutaDestino . "<br>";
+    echo "Tatuador: " . $idtatu . "<br>";
 
     echo "Ruta temporal del archivo: " . $rutaTemporal . "<br>";
 
     // Mover la imagen al directorio de destino
- 
+
     if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
-        $stmt = $conn->prepare("INSERT INTO IMAGENES (descripcion, ruta, nombre) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $descripcion, $rutaDestino, $nombreImagen);
+        $stmt = $conn->prepare("INSERT INTO IMAGENES (descripcion, ruta, nombre, idtatuador) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $descripcion, $rutaDestino, $nombreImagen, $idtatu);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {

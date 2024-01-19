@@ -94,6 +94,7 @@ include "conexion.php";
                     <div class="col-sm-4 col-xl-4 mb-4">
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <form method="post" action="./php/image.php" enctype="multipart/form-data">
+                            <div> <input hidden type="number" name="idtatu" value="<?php echo $_SESSION["idUsuario"]; ?>"></div>
                                 <div class="row mb-4">
                                     <p>Añadir Imagen</p>
                                     <input class="form-control form-control-sm" name="imagen" id="imagen" type="file" accept="image/*" required onchange="previewImage(event, '#imgPreview')">

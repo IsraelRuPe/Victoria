@@ -24,6 +24,18 @@ include "../conexion/cone.php"
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+    <style>
+        .custom-input {
+            width: 100%;
+            padding: 5.5px;
+            margin-bottom: 9px;
+            border: 1px solid #1a0c0c;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 17px;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -134,10 +146,35 @@ include "../conexion/cone.php"
 
                                             </div>
 
-                                            <div class="mb-3">
-                                                <label for="hora" class="form-label">Hora del evento:</label>
-                                                <input type="time" class="form-control" name="hora" id="hora" aria-describedby="helpId" placeholder="Hora:">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="horario" class="form-label">Selecciona un horario</label>
+                                                    <select name="hora" id="hora" class="form-group custom-input">
+                                                        <option value="0">Selecciona:</option>
+                                                        <?php
+                                                        $query_horarios = "SELECT * FROM HORARIOS";
+                                                        $result_horarios = mysqli_query($conn, $query_horarios);
 
+                                                        while ($horario = mysqli_fetch_array($result_horarios)) {
+                                                            echo '<option value="' . $horario['idhorario'] . '">' . $horario['horarioinicio'] . ' - ' . $horario['horariofin'] . '</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="horario" class="form-label">Selecciona el Estado</label>
+                                                    <select name="estadocita" id="estadocita" class="form-group custom-input">
+                                                        <option value="0">Selecciona:</option>
+                                                        <?php
+                                                        $query_Estados = "SELECT * FROM ESTADO_CITAS";
+                                                        $result_Estados = mysqli_query($conn, $query_Estados);
+
+                                                        while ($Estado = mysqli_fetch_array($result_Estados)) {
+                                                            echo '<option value="' . $Estado['id_estado'] . '">' . $Estado['Estado'] . '</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
                                             </div>
 
                                             <div class="mb-3">
@@ -228,6 +265,7 @@ include "../conexion/cone.php"
 
                 },
                 events: "./agenda/api.php"
+
             });
             calendar.render();
         });
