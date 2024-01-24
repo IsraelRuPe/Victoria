@@ -1,3 +1,8 @@
+<style>
+  .letras{
+    font-family: cursive;
+  }
+</style>
 <header>
     <div id="navigation" class="navbar navbar-inverse navbar-fixed-top default" role="navigation">
       <div class="container">
@@ -8,7 +13,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/index.php">Estudio Ángeles</a>
+          <a  class="navbar-brand" href="/index.php">Estudio Ángeles</a>
         </div>
 
         <div class="navigation">
@@ -17,13 +22,13 @@
               <ul class="nav navbar-nav navbar-right">
                 <!-- nav inicio-->
 
-                <li><a id="index" href="/">Inicio</a></li>
-                <li><a id="nosotros" href="#about">nosotros</a></li>
-                <li><a id="trabajos" href="#works">Ideas Tatuajes</a></li>
-                <li><a id="informes" href="#contact">Información</a></li>
-                <li><a id="cotiza" href="#contact">solicitar cotización</a></li>
-                <li><a id="login" href="/login/"><?php echo (isset($_SESSION["idUsuario"])) ?  "Tú perfil " . $_SESSION["nombre"] : "Iniciar Sesión"; ?></a></li>      
-                <?php echo (isset($_SESSION["idUsuario"])) ? "<li><a href =\"./cerrarsesion.php\" id=\"cerrar\">Cerrar sesion</a></li>" : ""; ?>
+                <li><a style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;" id="index" href="/">Inicio</a></li>
+                <li><a style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;" id="nosotros" href="#about">nosotros</a></li>
+                <li><a style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;" id="trabajos" href="#works">Ideas Tatuajes</a></li>
+                <li><a style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;" id="informes" href="#contact">Información</a></li>
+                <li><a style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;" id="cotiza" href="#contact">solicitar cotización</a></li>
+                <li><a style="font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;" id="login" href="/login/"><?php echo (isset($_SESSION["idUsuario"])) ?  "Tú perfil " . $_SESSION["nombre"] : "Iniciar Sesión"; ?></a></li>      
+                <?php echo (isset($_SESSION["idUsuario"])) ? "<li><a style=\"font-family:Georgia, 'Times New Roman', Times, serif ; font-size: 14px;\" href =\"./cerrarsesion.php\" id=\"cerrar\">Cerrar sesion</a></li>" : ""; ?>
               </ul>
             </nav>
           </div>

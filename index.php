@@ -44,6 +44,7 @@ include "./conexion/cone.php"
     color: #fff;
     cursor: pointer;
   }
+  
 </style>
 
 <body>
@@ -71,10 +72,10 @@ include "./conexion/cone.php"
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <div class="heading">
-            <h3><span>About us</span></h3>
+            <h3><span>Nosotros</span></h3>
           </div>
           <div class="sub-heading">
-            <p>
+            <p style="font-family: Georgia, 'Times New Roman', Times, serif; color:#c7c7c7">
               Creating a visual language around the beliefs of the brands we work with.
             </p>
           </div>
@@ -158,7 +159,7 @@ include "./conexion/cone.php"
             <h3><span>Recent works</span></h3>
           </div>
           <div class="sub-heading">
-            <p>
+            <p style="font-family: Georgia, 'Times New Roman', Times, serif; color:#c7c7c7">
               We have a history of doing what our name implies, creating a visual language around the beliefs of the
               brands we work with.
             </p>
@@ -202,12 +203,12 @@ include "./conexion/cone.php"
             <h3><span>Cotiza tu tatuaje</span></h3>
           </div>
           <div class="sub-heading">
-            <p>Llena el siguiente formulario para solicitar una cotización de tu próximo tatuaje.</p>
+            <p style="font-family: Georgia, 'Times New Roman', Times, serif; color:#c7c7c7">Llena el siguiente formulario para solicitar una cotización de tu próximo tatuaje.</p>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 col-md-offset-3" style="border: 2px solid black; border-radius: 5px;">
+        <div class="col-md-6 col-md-offset-3" style="border: 1px solid white; border-radius: 5px;">
           <h4><i class="icon-envelope"></i><strong>Contactanos</strong></h4>
           <p>Para poder realizar una cotización, inicia sesión o regístrate, para asi, brindarte la mejor atención posible.</p>
           <div class="" id="contact-form">
@@ -294,7 +295,7 @@ include "./conexion/cone.php"
             <h3><span>Locacion</span></h3>
           </div>
           <div class="sub-heading">
-            <p>Aqui Tienes una forma de</p>
+            <p style="font-family: Georgia, 'Times New Roman', Times, serif; color:#c7c7c7">Aqui Tienes una forma de</p>
           </div>
         </div>
         <div class="col-md-8 col-md-offset-2 text-center">

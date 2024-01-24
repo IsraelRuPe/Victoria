@@ -39,6 +39,29 @@ if (isset($_SESSION["idUsuario"])) {
     color: #fff;
     cursor: pointer;
   }
+
+  body {
+
+    background-image: url('../assets/img/slide/hec.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  img {
+    filter: grayscale(1);
+    width: 80%;
+    opacity: 1;
+    border-radius: 5px;
+  }
+
+  img:hover {
+    filter: grayscale(0);
+  }
+
+  figure {
+    margin: 20px 0;
+  }
 </style>
 
 <body>
@@ -54,19 +77,19 @@ if (isset($_SESSION["idUsuario"])) {
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <div class="heading"><br>
-            <h3><span>Iniciar Sesion</span></h3>
+          <div class="heading"  style="margin-top: 13%">
+            <h3><span>Iniciar </span><span> Sesion</span></h3>
           </div>
           <div class="sub-heading">
             <p></p>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 text-center">
           <h4><i class="icon-envelope"></i><strong>Bienvenido</strong></h4>
           <p>Ingrese su correo y contraseña</p><b></b>
 
           <form action="./login.php" method="POST">
-            <div class="mb-3 form-group">
+            <div class="col-md-12 form-group">
               <label class="form-label">Correo Electrónico</label>
               <input type="email" class="form-control custom-input" placeholder="Correo Electrónico" id="exampleInputEmail1" name="loginemail" aria-describedby="emailHelp">
               <?php
@@ -75,7 +98,7 @@ if (isset($_SESSION["idUsuario"])) {
               }
               ?>
             </div>
-            <div class="form-group">
+            <div class="col-md-12 form-group">
               <label for="Password">Contraseña</label>
               <div class="input-group">
                 <input type="password" class="form-control custom-input" id="password" name="passlogin" placeholder="Contraseña" required>
@@ -84,13 +107,13 @@ if (isset($_SESSION["idUsuario"])) {
             </div>
 
             <div class="row">
-              <div class="col-md-6 mb-3">
+              <div class="col-md-6">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1" name="check">
                   <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
               </div>
-              <div class="col-md-6 mb-3 text-right">
+              <div class="col-md-6  text-right">
                 <a href="../recover/index.php">¿Olvidaste tu contraseña?</a>
               </div>
             </div><br>
@@ -105,9 +128,9 @@ if (isset($_SESSION["idUsuario"])) {
         </div>
 
         <div class="col-md-6 text-center">
-          <h4>Find our location</h4>
-          <p>View from google map</p>
-          <img src="../assets/img/slide/2.jpg" alt="" class="mx-auto d-block img-fluid" style="width: 100%;">
+          <figure>
+            <img class="mx-auto d-block img-fluid" src="../assets/img/portfolio/girl03.jpg" alt="">
+          </figure>
         </div>
       </div>
     </div>

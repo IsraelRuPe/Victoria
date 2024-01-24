@@ -247,7 +247,7 @@ $exeSQL = mysqli_query($conn, $SQL);
               <p>Seleccionar Fecha y Hora para la Cita</p>
             </div>
           </div>
-          <div class="col-md-8 col-md-offset-2" style="border: 2px solid  palegreen; border-radius: 6px;">
+          <div class="col-md-8 col-md-offset-2" style="border: 1px solid white; border-radius: 6px;">
             <form action="agendar" method="POST">
               <?php
               if (isset($_GET['action']) && $_GET['action'] === 'agendar' && isset($_GET['id'])) {
@@ -312,17 +312,14 @@ $exeSQL = mysqli_query($conn, $SQL);
               <p></p>
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-8 col-md-offset-2 text-center">
             <form action="" method="post">
               <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-6 col-md-offset-3 form-group">
                   <label>Nombre(s)</label>
                   <input type="text" name="nombre" class="form-control custom-input" id="nombre" value="<?php echo $_SESSION["nombre"]; ?>" />
                 </div>
-                <div class="col-md-6 form-group">
-                  <label>Genero</label><br>
-                  <input type="text" value="" class="form-control custom-input" id="" value="<?php echo $_SESSION["genero"]; ?>" readonly>
-                </div>
+
               </div>
 
               <div class="row">
@@ -341,15 +338,12 @@ $exeSQL = mysqli_query($conn, $SQL);
                   <input type="text" name="telefono" class="form-control custom-input" id="telefono" required value="<?php echo $_SESSION["telefono"]; ?>" />
                 </div>
                 <div class="col-md-6 form-group">
-                  <label>Fecha de nacimiento</label>
-                  <input type="date" class="form-control custom-input" id="fechaNacimiento" name="fechaNacimiento" min="1930-01-01" max="2026-12-31" value="<?php echo $_SESSION["edad"]; ?>" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 form-group">
                   <label>Correo electronico</label>
                   <input type="email" class="form-control custom-input" name="correo" data-rule="email" value="<?php echo $_SESSION["correo"]; ?>" readonly />
                 </div>
+              </div>
+              <div class="row">
+
 
               </div>
               <div class="row">
@@ -414,27 +408,29 @@ $exeSQL = mysqli_query($conn, $SQL);
 
 
   <script>
-   $(document).ready(function () {
-      $('#fecha').change(function () {
-         var fechaSeleccionada = $(this).val();
-         console.log('Fecha seleccionada:', fechaSeleccionada);
+    $(document).ready(function() {
+      $('#fecha').change(function() {
+        var fechaSeleccionada = $(this).val();
+        console.log('Fecha seleccionada:', fechaSeleccionada);
 
-         // Realiza una petición AJAX para obtener los horarios disponibles según la fecha
-         $.ajax({
-            url: './horarios.php', // Reemplaza con la URL correcta de tu script PHP
-            method: 'POST',
-            data: { fecha: fechaSeleccionada },
-            success: function (response) {
-               // Limpia las opciones actuales
-               $('#hora').empty();
-
-               // Agrega las nuevas opciones
-               $('#hora').append(response);
-            }
-         });
+        // Realiza una petición AJAX para obtener los horarios disponibles según la fecha
+        $.ajax({
+          url: './horarios.php', // Reemplaza con la URL correcta de tu script PHP
+          method: 'POST',
+          data: {
+            fecha: fechaSeleccionada
+          },
+          success: function(response) {
+            // Limpia las opciones actuales
+             $('#hora').empty();
+            console.log(response)
+            // Agrega las nuevas opciones
+             $('#hora').append(response);
+          }
+        });
       });
-   });
-</script>
+    });
+  </script>
   <!-- <script>
     $(document).ready(function() {
       // Configurar el datepicker con el formato deseado

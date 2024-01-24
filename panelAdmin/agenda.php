@@ -145,7 +145,18 @@ include "../conexion/cone.php"
                                                 <input type="text" class="form-control" name="fecha" id="fecha" aria-describedby="helpId" placeholder="Fecha:">
 
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">ID Usuario</label>
+                                                    <input type="number" class="form-control" name="id_usuario" id="id_usuario" aria-describedby="helpId">
 
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">ID Cotizacion</label>
+                                                    <input type="number" class="form-control" name="id_cotizacion" id="id_cotizacion" aria-describedby="helpId">
+
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="horario" class="form-label">Selecciona un horario</label>
@@ -330,7 +341,6 @@ include "../conexion/cone.php"
             evento.append("hora", document.getElementById('hora').value);
             evento.append("descripcion", document.getElementById('descripcion').value);
             evento.append("color", document.getElementById('color').value);
-            evento.append("id", document.getElementById('id').value);
             return evento;
         }
 
