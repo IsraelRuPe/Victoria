@@ -294,6 +294,10 @@ include "../conexion/cone.php"
             document.getElementById('descripcion').value = evento.extendedProps.descripcion;
             document.getElementById('color').value = evento.backgroundColor;
 
+            //fetch 
+
+
+            
             document.getElementById('btnBorrar').removeAttribute('disabled', "");
             document.getElementById('btnGuardar').removeAttribute('disabled', "");
 
